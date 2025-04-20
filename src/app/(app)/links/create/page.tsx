@@ -33,7 +33,7 @@ export default function LinksPage() {
     expiryDays: "30",
     redirectUrl: "",
     currency: "USD",
-    webhookUrl: "",
+    payment_type: "",
   });
 
   const [linkCreated, setLinkCreated] = useState(false);
@@ -71,8 +71,8 @@ export default function LinksPage() {
         amount: parseFloat(formData.amount),
         description: formData.description,
         redirect_url: formData.redirectUrl,
-        webhook: formData.webhookUrl,
-        expiry: parseInt(formData.expiryDays) * 24, // Convert days to hours: 7 days = 168 hours
+        payment_type: formData.payment_type,
+        expiry: 10, // Convert days to hours: 7 days = 168 hours
       };
 
       // Make API call to create payment link
@@ -202,7 +202,7 @@ export default function LinksPage() {
                         This is the URL that will receive the payment status
                         updates.
                       </p>
-                      <Input
+                      {/* <Input
                         id="webhookUrl"
                         name="webhookUrl"
                         placeholder="e.g. https://example.com"
@@ -210,7 +210,7 @@ export default function LinksPage() {
                         onChange={handleInputChange}
                         type="url"
                         className="focus-visible:ring-primary/30"
-                      />
+                      /> */}
                     </div>
                     <div className="p-4 rounded-lg bg-muted/40 border border-border/60">
                       <div className="flex items-center justify-between mb-3">
@@ -277,20 +277,17 @@ export default function LinksPage() {
                           Expiration
                         </Label>
                         <Select
-                          value={formData.expiryDays}
+                          value={formData.payment_type}
                           onValueChange={(value) =>
-                            handleSelectChange("expiryDays", value)
+                            handleSelectChange("payment_type", value)
                           }
                         >
                           <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select expiration" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="7">7 days</SelectItem>
-                            <SelectItem value="30">30 days</SelectItem>
-                            <SelectItem value="90">90 days</SelectItem>
-                            <SelectItem value="365">1 year</SelectItem>
-                            <SelectItem value="0">Never expires</SelectItem>
+                            <SelectItem value="PERMANENT">PERMANENT</SelectItem>
+                            <SelectItem value="ONE_TIME">ONE_TIME</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>

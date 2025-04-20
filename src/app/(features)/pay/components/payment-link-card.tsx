@@ -288,6 +288,7 @@ export default function PaymentPage({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          origin: "links",
           email: email,
           amount: paymentDetails.amount / coinPrices[selectedCrypto],
           currency: selectedCrypto,
@@ -295,6 +296,7 @@ export default function PaymentPage({
             ?.network,
           mode: "MAIN",
           amount_usd: paymentDetails.amount,
+          payment_link_id: paymentDetails.id,
         }),
       });
 

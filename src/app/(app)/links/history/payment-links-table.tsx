@@ -33,7 +33,7 @@ import {
 } from "@tabler/icons-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { toast } from "sonner";
-import { z } from "zod";
+import { boolean, z } from "zod";
 import { format, parseISO } from "date-fns";
 import { createContext, useContext } from "react";
 
@@ -95,6 +95,8 @@ export const schema = z.object({
   amount: z.number(),
   description: z.string(),
   expires: z.string(),
+  is_active: z.boolean(),
+  link_type: z.string(),
 });
 
 // Create a context for the table operations
@@ -151,6 +153,20 @@ const columns = (
     header: "Description",
     cell: ({ row }) => (
       <div className="max-w-[300px] truncate">{row.original.description}</div>
+    ),
+  },
+  {
+    accessorKey: "is_active",
+    header: "is_active",
+    cell: ({ row }) => (
+      <div className="max-w-[300px] truncate">{row.original.is_active.toString()}</div>
+    ),
+  },
+  {
+    accessorKey: "link_type",
+    header: "link_type",
+    cell: ({ row }) => (
+      <div className="max-w-[300px] truncate">{row.original.link_type}</div>
     ),
   },
   {
